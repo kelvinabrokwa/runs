@@ -1,31 +1,28 @@
-/* global d3, turf */
-var centroid = turf.centroid;
-var bboxPoly = turf.bboxPolygon;
-var extent = turf.extent;
-var area = turf.area;
-
+/* global d3 */
 var mainDiv = document.getElementById('gallery');
 
 var w = 300,
     h = 300;
-
-var projection = d3.geo.mercator()
-    .translate([w / 2, h / 2]);
-
-var path = d3.geo.path()
-    .projection(projection);
 
 function render(ls, id) {
     var div = document.createElement('div');
     mainDiv.appendChild(div);
     div.setAttribute('id', 'r' + id);
 
-    var bbox = bboxPoly(extent(ls));
-    var scale = area(bbox) / 2;
+    var projection = d3.geo.mercator()
+        .scale(1)
+        .translate([0, 0]);
+
+    var path = d3.geo.path()
+        .projection(projection);
+
+    var b = path.bounds(ls);
+    var s = .95 / Math.max((b[1][0] - b[0][0]) / w, (b[1][1] - b[0][1]) / h);
+    var t = [(w - s * (b[1][0] + b[0][0])) / 2, (h - s * (b[1][1] + b[0][1])) / 2];
 
     projection
-        .scale(scale)
-        .center(centroid(bbox).geometry.coordinates);
+        .scale(s)
+        .translate(t);
 
     var svg = d3.select('#r' + id).append('svg')
         .attr('class', 'map')
@@ -35,12 +32,9 @@ function render(ls, id) {
     svg.append('path')
         .datum(ls)
         .attr('d', path)
-        .attr('x', 100)
-        .attr('y', 100)
         .style('stroke', '#000')
         .style('stroke-width', '0.5px')
         .style('fill', 'none');
-
 }
 
 function main(error, data) {

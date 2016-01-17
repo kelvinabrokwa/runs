@@ -2,17 +2,65 @@
 <html lang='en'>
 <head>
   <meta charset='UTF-8'>
-  <title>CHM Runs</title>
+  <title>Runs</title>
   <script src='//d3js.org/d3.v3.min.js'></script>
   <script src='//api.tiles.mapbox.com/mapbox.js/plugins/turf/v2.0.0/turf.min.js'></script>
   <style>
+    body {
+      font-family: 'Courier New', Courier, monospace;
+    }
     .map {
       float: left;
+    }
+    .icon-about,
+    .about {
+      display: inline;
+    }
+    .icon-about {
+      top: 0;
+      right: 0;
+      padding-left: 4px;
+      padding-right: 4px;
+      width: 10px;
+      height: 10px;
+      border: solid 1px #000;
+      -webkit-border-radius: 10px;
+         -moz-border-radius: 10px;
+              border-radius: 10px;
+    }
+    .icon-about:hover {
+      cursor: crosshair;
+    }
+    .about {
+      visibility: hidden;
+    }
+    svg {
+      border: solid 1px #000;
+      margin-right: 5px;
+      margin-top: 5px;
+    }
+    .container {
+      margin-left: auto;
+      margin-right: auto;
+    }
+    @media only screen and (min-device-width: 800px) {
+      .container {
+        width: 70%;
+      }
+    }
+    @media only screen and (max-device-width: 800px) {
+      .container {
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
-  <div id='gallery'></div>
+  <div class='icon-about' id='about-icon'>i</div>
+  <div class='about' id='about'>kelvin abrokwa's Strava runs mapped</div>
+  <div class='container'>
+    <div id='gallery'></div>
+  </div>
   <script src='index.js'></script>
 </body>
 </html>

@@ -32,9 +32,7 @@ function render(ls, id) {
     svg.append('path')
         .datum(ls)
         .attr('d', path)
-        .style('stroke', '#000')
-        .style('stroke-width', '0.5px')
-        .style('fill', 'none');
+        .attr('class', 'ls');
 }
 
 function main(error, data) {
